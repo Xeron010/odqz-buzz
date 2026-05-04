@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ODQZ Buzz - Stay updated with trending topics, viral news, and social insights">
+    <title>ODQZ Buzz - Trending News & Social Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        nav .logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #667eea;
+        }
+        
+        .hero {
+            padding: 60px 20px 40px;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        .search-bar {
+            max-width: 500px;
+            margin: 0 auto 30px;
+            display: flex;
+            background: white;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            border: none;
+            padding: 15px 25px;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .search-bar button {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .trending-tags {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tag:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .feed {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .post {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        .post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .post-header {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .post-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .post-info h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+        
+        .post-info .meta {
+            font-size: 13px;
+            color: #999;
+        }
+        
+        .post-category {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #667eea;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .post-content h2 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            color: #333;
+        }
+        
+        .post-content p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+        
+        .post-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            margin-bottom: 15px;
+        }
+        
+        .post-stats {
+            display: flex;
+            gap: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
+            margin-top: 15px;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #999;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .stat-item:hover {
+            color: #667eea;
+        }
+        
+        .trending-section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .trending-section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .trending-items {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .trending-item {
+            padding: 15px;
+            border-radius: 8px;
+            background: #f9f9f9;
+            transition: all 0.3s;
+        }
+        
+        .trending-item:hover {
+            background: #f0f0f0;
+        }
+        
+        .trending-rank {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+        }
+        
+        .trending-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .trending-count {
+            font-size: 13px;
+            color: #999;
+        }
+        
+        .cta-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .cta-banner h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .post-stats {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">⚡ ODQZ BUZZ</div>
+            <ul>
+                <li><a href="#feed">Feed</a></li>
+                <li><a href="#trending">Trending</a></li>
+                <li><a href="#community">Community</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Stay Ahead of the Buzz</h1>
+        <p>Discover trending topics, viral news, and social conversations in real-time</p>
+        <div class="search-bar">
+            <input type="text" placeholder="Search trending topics, hashtags, and people...">
+            <button>🔍</button>
+        </div>
+        <div class="trending-tags">
+            <div class="tag">#Technology</div>
+            <div class="tag">#Startup</div>
+            <div class="tag">#AI</div>
+            <div class="tag">#Business</div>
+            <div class="tag">#Innovation</div>
+            <div class="tag">#Marketing</div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="feed" id="feed">
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar">🚀</div>
+                    <div class="post-info">
+                        <h3>Tech Trends Daily <span class="post-category">TRENDING</span></h3>
+                        <div class="meta">@techtrendsdaily • 2 hours ago</div>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <h2>AI Revolution 2024: The Year Everything Changes</h2>
+                    <p>Artificial Intelligence is transforming industries faster than ever before. From healthcare to finance, discover how AI is reshaping the future of business and innovation.</p>
+                    <div class="post-image">🤖</div>
+                </div>
+                <div class="post-stats">
+                    <div class="stat-item">❤️ 2.5K Likes</div>
+                    <div class="stat-item">💬 485 Comments</div>
+                    <div class="stat-item">🔄 1.2K Shares</div>
+                    <div class="stat-item">📈 Trending</div>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar">💼</div>
+                    <div class="post-info">
+                        <h3>StartupHub Insider <span class="post-category">STARTUP</span></h3>
+                        <div class="meta">@startuphub • 1 hour ago</div>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <h2>Breaking: New Funding Round Records $500M</h2>
+                    <p>A major tech startup just secured an unprecedented funding round, signaling strong investor confidence in the startup ecosystem despite economic headwinds.</p>
+                    <div class="post-image">📊</div>
+                </div>
+                <div class="post-stats">
+                    <div class="stat-item">❤️ 1.8K Likes</div>
+                    <div class="stat-item">💬 342 Comments</div>
+                    <div class="stat-item">🔄 956 Shares</div>
+                    <div class="stat-item">🔥 VIRAL</div>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar">🌟</div>
+                    <div class="post-info">
+                        <h3>Innovation Weekly <span class="post-category">INNOVATION</span></h3>
+                        <div class="meta">@innovationweekly • 45 min ago</div>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <h2>The Future of Remote Work: What's Next?</h2>
+                    <p>As organizations adapt to hybrid work models, new technologies and strategies are emerging. Learn about the tools shaping the future of distributed teams.</p>
+                    <div class="post-image">💻</div>
+                </div>
+                <div class="post-stats">
+                    <div class="stat-item">❤️ 3.2K Likes</div>
+                    <div class="stat-item">💬 621 Comments</div>
+                    <div class="stat-item">🔄 1.8K Shares</div>
+                    <div class="stat-item">📈 Trending</div>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar">🎯</div>
+                    <div class="post-info">
+                        <h3>Business Insights <span class="post-category">BUSINESS</span></h3>
+                        <div class="meta">@businessinsights • 30 min ago</div>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <h2>5 Leadership Trends Shaping 2024</h2>
+                    <p>Discover the leadership styles and business approaches that are winning in 2024, from transparency to digital-first strategies.</p>
+                    <div class="post-image">👔</div>
+                </div>
+                <div class="post-stats">
+                    <div class="stat-item">❤️ 2.1K Likes</div>
+                    <div class="stat-item">💬 298 Comments</div>
+                    <div class="stat-item">🔄 743 Shares</div>
+                    <div class="stat-item">✨ Hot</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="trending-section" id="trending">
+            <h2>🔥 Trending Now</h2>
+            <div class="trending-items">
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <div class="trending-rank">1</div>
+                    <div>
+                        <div class="trending-title">#ArtificialIntelligence</div>
+                        <div class="trending-count">1.5M posts • +42% today</div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <div class="trending-rank">2</div>
+                    <div>
+                        <div class="trending-title">#StartupLife</div>
+                        <div class="trending-count">892K posts • +28% today</div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <div class="trending-rank">3</div>
+                    <div>
+                        <div class="trending-title">#WebDevelopment</div>
+                        <div class="trending-count">654K posts • +15% today</div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <div class="trending-rank">4</div>
+                    <div>
+                        <div class="trending-title">#DigitalTransformation</div>
+                        <div class="trending-count">521K posts • +33% today</div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <div class="trending-rank">5</div>
+                    <div>
+                        <div class="trending-title">#TechInnovation</div>
+                        <div class="trending-count">445K posts • +19% today</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-banner" id="community">
+            <h2>Join Our Community</h2>
+            <p style="margin-bottom: 20px; font-size: 18px;">Connect with millions of professionals and stay updated on trending topics</p>
+            <a href="#" class="btn">Sign Up Free</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 ODQZ Buzz. All rights reserved.</p>
+    </footer>
+</body>
+</html>
